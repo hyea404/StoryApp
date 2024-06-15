@@ -41,9 +41,9 @@ class LoginActivity : AppCompatActivity() {
                 is Result.Success -> {
                     showLoading(false)
                     AlertDialog.Builder(this).apply {
-                        setTitle("Berhasil!")
+                        setTitle("Login Succeess!")
                         setMessage(R.string.message_login_page)
-                        setPositiveButton("Ke Halaman Utama") { _, _ ->
+                        setPositiveButton("Let's Start!") { _, _ ->
                             val intent = Intent(context, MainActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)

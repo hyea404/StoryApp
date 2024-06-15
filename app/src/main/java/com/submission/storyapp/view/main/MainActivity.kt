@@ -64,17 +64,10 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-
-
-
-
         binding.addStory.setOnClickListener {
             val intent = Intent(this, AddStoryActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
     private fun showLoading(isLoading: Boolean) {
