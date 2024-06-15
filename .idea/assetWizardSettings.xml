@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsround/add_circle_outline/round_add_circle_outline_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsround/person_outline/round_person_outline_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,7 +29,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="465a54" />
-                            <entry key="outputName" value="ic_add_circle" />
+                            <entry key="outputName" value="ic_round_person" />
                             <entry key="sourceFile" value="C:\Users\LENOVO\AndroidStudioProjects\StoryApp2" />
                           </map>
                         </option>
