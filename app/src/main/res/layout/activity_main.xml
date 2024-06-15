@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@drawable/baseline_add_circle_outline_24"
+        android:src="@drawable/ic_add_circle"
         app:fabSize="normal"
         tools:ignore="ImageContrastCheck,RedundantDescriptionCheck">
 
