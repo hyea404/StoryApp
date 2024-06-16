@@ -1,17 +1,17 @@
 package com.submission.storyapp.view.signup
 
-import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.animation.AnimatorSet
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import android.os.Build
+import androidx.activity.viewModels
 import android.util.Log
 import android.view.View
-import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import android.view.WindowInsets
 import androidx.appcompat.app.AlertDialog
 import com.submission.storyapp.R
 import com.submission.storyapp.databinding.ActivitySignupBinding
@@ -31,25 +31,28 @@ class SignupActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupRegister()
-        setupView()
-        setupAction()
-        playAnimation()
+        setRegister()
+        setView()
+        setAction()
+        playAnimate()
     }
 
-    private fun setupRegister() {
+    private fun setRegister() {
         viewModel.registerViewModel.observe(this) {
-            when(it) {
+            when (it) {
                 is Result.Loading -> {
-                    showLoading(true)
+                    showLoading(
+                        true
+                    )
                 }
+
                 is Result.Success -> {
                     showLoading(false)
                     AlertDialog.Builder(this).apply {
-                        setTitle("Selamat")
-                        setMessage("Akunmu sudah dibuat")
+                        setTitle("Congrats!")
+                        setMessage("Your account has been created")
                         setCancelable(false)
-                        setPositiveButton("Login"){_, _ ->
+                        setPositiveButton("Login") { _, _ ->
                             val intent = Intent(context, LoginActivity::class.java)
                             startActivity(intent)
                             finish()
@@ -58,8 +61,9 @@ class SignupActivity : AppCompatActivity() {
                         show()
                     }
                 }
-                is Result.Error ->{
-                    Log.e("RegisterActivity","error: ${it.error}")
+
+                is Result.Error -> {
+                    Log.e("RegisterActivity", "error: ${it.error}")
                     showToast()
                     showLoading(false)
                 }
@@ -67,11 +71,22 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    private fun setAction() {
+        binding.signupBtn.setOnClickListener {
+            binding.apply {
+                if (validInput()) {
+                    val name = nameEditText.text.toString().trim()
+                    val email = emailEditText.text.toString().trim()
+                    val password = passwordEditText.text.toString().trim()
+                    viewModel.register(name, email, password)
+                } else {
+                    showToast()
+                }
+            }
+        }
     }
 
-    private fun setupView() {
+    private fun setView() {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -84,51 +99,47 @@ class SignupActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setupAction() {
-        binding.signupButton.setOnClickListener {
-            binding.apply {
-                if (inputValid()) {
-                    val name = nameEditText.text.toString().trim()
-                    val email = emailEditText.text.toString().trim()
-                    val password = passwordEditText.text.toString().trim()
-                    viewModel.register(name, email, password)
-                } else {
-                    showToast()
-                }
-            }
-        }
+    private fun validInput(): Boolean {
+        return binding.nameTv.error.isNullOrBlank() &&
+                binding.emailTv.error.isNullOrBlank() &&
+                binding.passwordTv.error.isNullOrBlank()
     }
 
-    private fun inputValid(): Boolean {
-        return binding.nameTextView.error.isNullOrBlank() &&
-                binding.emailTextView.error.isNullOrBlank() &&
-                binding.passwordTextView.error.isNullOrBlank()
-    }
-
-    private fun playAnimation() {
-        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X,-30f, 30f).apply {
-            duration = 6000
+    private fun playAnimate() {
+        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = 5500
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
         }.start()
 
-        val titleTextView = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(100)
-        val nameTextView = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(100)
-        val nameEditTextLayout = ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val emailTextView = ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
-        val emailEditTextLayout = ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val passwordTextView = ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
-        val passwordEditTextLayout = ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val signupButton = ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 1f).setDuration(100)
+        val titleTextView = ObjectAnimator.ofFloat(binding.titleTv, View.ALPHA, 1f).setDuration(110)
+        val nameTextView = ObjectAnimator.ofFloat(binding.nameTv, View.ALPHA, 1f).setDuration(110)
+        val nameEditTextLayout =
+            ObjectAnimator.ofFloat(binding.nameEtl, View.ALPHA, 1f).setDuration(110)
+        val emailTextView = ObjectAnimator.ofFloat(binding.emailTv, View.ALPHA, 1f).setDuration(110)
+        val emailEditTextLayout =
+            ObjectAnimator.ofFloat(binding.emailEtl, View.ALPHA, 1f).setDuration(110)
+        val passwordTextView =
+            ObjectAnimator.ofFloat(binding.passwordTv, View.ALPHA, 1f).setDuration(110)
+        val passwordEditTextLayout =
+            ObjectAnimator.ofFloat(binding.passwordEtl, View.ALPHA, 1f).setDuration(110)
+        val signupButton =
+            ObjectAnimator.ofFloat(binding.signupBtn, View.ALPHA, 1f).setDuration(110)
 
         AnimatorSet().apply {
-            playSequentially(titleTextView, nameTextView,nameEditTextLayout, emailTextView,
-                emailEditTextLayout, passwordTextView, passwordEditTextLayout, signupButton)
+            playSequentially(
+                titleTextView, nameTextView, nameEditTextLayout, emailTextView,
+                emailEditTextLayout, passwordTextView, passwordEditTextLayout, signupButton
+            )
             start()
         }
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
     private fun showToast() {
-        Toast.makeText(this, R.string.failed_register, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.registration_fail, Toast.LENGTH_SHORT).show()
     }
 }

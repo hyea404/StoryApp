@@ -2,10 +2,10 @@ package com.submission.storyapp.view.adapter
 
 import android.app.Activity
 import android.content.Intent
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +15,10 @@ import com.submission.storyapp.data.response.ListStoryItem
 import com.submission.storyapp.databinding.ItemStoryBinding
 import com.submission.storyapp.view.detail.DetailActivity
 
-class UserListAdapter(private val listStories: List<ListStoryItem>): RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
-    inner class ListViewHolder(private val binding: ItemStoryBinding): RecyclerView.ViewHolder(binding.root) {
+class UserListAdapter(private val listStories: List<ListStoryItem>) :
+    RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
+    inner class ListViewHolder(private val binding: ItemStoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private var idStoryImage: ImageView = itemView.findViewById(R.id.id_story_image)
         private var idText: TextView = itemView.findViewById(R.id.id_name)
         private var idDescription: TextView = itemView.findViewById(R.id.id_description)
@@ -49,16 +51,22 @@ class UserListAdapter(private val listStories: List<ListStoryItem>): RecyclerVie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        return ListViewHolder(ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-    }
-
-    override fun getItemCount(): Int {
-        return listStories.size
+        return ListViewHolder(
+            ItemStoryBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: UserListAdapter.ListViewHolder, position: Int) {
         val item = listStories[position]
         holder.bind(item)
+    }
+
+    override fun getItemCount(): Int {
+        return listStories.size
     }
 
 }

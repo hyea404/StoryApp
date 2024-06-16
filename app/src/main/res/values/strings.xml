@@ -6,30 +6,30 @@
     <string name="title_signup_page">Complete your data below!</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="camera_btn">Camera\n</string>
+    <string name="failed_login">login failed</string>
+    <string name="empty_description">empty description</string>
+    <string name="ok_message">Okay</string>
+    <string name="empty_image">Blank Image\n</string>
     <string name="message_login_page">Share your story with others, tell the world about your important moments!</string>
     <string name="title_login_page">Ready to share your moment?</string>
-    <string name="name">Nama</string>
+    <string name="name">Name</string>
+    <string name="retry">Try Again\n</string>
+    <string name="upload_story">Upload</string>
+    <string name="gallery_btn">Galery\n</string>
+    <string name="upload_message">Your story has been added!</string>
+    <string name="next">Next</string>
+    <string name="error_title">Title does not appear</string>
+    <string name="error_description">Description does not appear</string>
     <string name="message_main_page">Welcome.</string>
     <string name="greeting">Hello %1$s,</string>
     <string name="logout">Logout</string>
     <string name="hint_password">Enter Password</string>
     <string name="invalid_password">Password not be less than 8 character</string>
     <string name="description">Description</string>
-    <string name="registration_fail">Gagal registrasi</string>
+    <string name="registration_fail">Registration failed</string>
     <string name="story_image">Story Image</string>
     <string name="message_welcome">Create your story today on StoryApps\n</string>
-    <string name="retry">Coba Lagi\n</string>
-    <string name="upload_story">Upload</string>
-    <string name="gallery_phone">Galery\n</string>
-    <string name="camera">Camera\n</string>
-    <string name="failed_register">Gagal registrasi user</string>
-    <string name="failed_login">gagal login</string>
-    <string name="empty_description">deskripsi kosong</string>
-    <string name="ok_message">Okay</string>
-    <string name="empty_image">Gambar Kosong\n</string>
-    <string name="upload_message">cerita kamu telah ditambahkan</string>
-    <string name="next">Next</string>
-    <string name="error_title">Judul tidak muncul</string>
-    <string name="error_description">Deskripsi tidak muncul</string>
+
 
 </resources>

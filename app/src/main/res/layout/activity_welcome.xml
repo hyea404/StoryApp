@@ -11,43 +11,42 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
+        app:layout_constraintBottom_toTopOf="@+id/GLHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/image_welcome" />
 
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/title_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
-        android:text="@string/title_welcome_page"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:layout_marginStart="32dp"
+        android:textSize="21sp"
         android:textStyle="bold"
+        android:text="@string/title_welcome_page"
+        android:textColor="@color/main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal" />
-
+        app:layout_constraintTop_toTopOf="@+id/GLHorizontal" />
 
     <TextView
         android:id="@+id/descTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:text="@string/message_welcome"
-        android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textColor="@color/main"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/title_tv" />
 
     <Button
         android:id="@+id/loginButton"
@@ -56,29 +55,29 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/main"
         android:text="@string/login"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+        app:layout_constraintEnd_toStartOf="@+id/GLVertical"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descTextView" />
 
     <Button
-        android:id="@+id/signupButton"
+        android:id="@+id/signup_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/main"
         android:text="@string/signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
+        app:layout_constraintStart_toStartOf="@+id/GLVertical"
         app:layout_constraintTop_toBottomOf="@+id/descTextView" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHorizontal"
+        android:id="@+id/GLHorizontal"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:orientation="horizontal"
@@ -87,7 +86,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineVertical"
+        android:id="@+id/GLVertical"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:orientation="vertical"

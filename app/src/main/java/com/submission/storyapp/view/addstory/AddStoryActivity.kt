@@ -7,13 +7,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.submission.storyapp.R
 import com.submission.storyapp.databinding.ActivityAddStoryBinding
 import com.submission.storyapp.helper.ViewModelFactory
@@ -48,13 +48,13 @@ class AddStoryActivity : AppCompatActivity() {
             ActivityResultContracts.TakePicture()
         ) { isSuccess ->
             if (isSuccess) {
-                showImage()
+                showImg()
             }
         }
 
-        postStory()
+        postAddStory()
 
-        binding.buttonCamera.setOnClickListener {
+        binding.btnCamera.setOnClickListener {
             val uri = getImageUri(this)
             currentImageUri = uri
             uri?.let {
@@ -62,24 +62,25 @@ class AddStoryActivity : AppCompatActivity() {
             } ?: showToast(getString(R.string.empty_image))
         }
 
-        binding.buttonGallery.setOnClickListener {
+        binding.btnGallery.setOnClickListener {
             launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
-        binding.buttonUpload.setOnClickListener {
+        binding.uploadBtn.setOnClickListener {
             var token: String
             currentImageUri?.let { uri ->
                 val imageFile = uriToFile(uri, this).reduceFileImage()
-                val description = binding.editTextDescription.text.toString()
+                val description = binding.etDescription.text.toString()
 
                 if (description.isEmpty()) {
                     AlertDialog.Builder(this).apply {
-                        setTitle("Please tell us about your story :)")
+                        setTitle("Please tell us about your story!")
                         setMessage(getString(R.string.empty_description))
                         setCancelable(false)
                         setPositiveButton(getString(R.string.ok_message)) { _, _ ->
                             val intent = Intent(context, AddStoryActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
                             finish()
                         }
@@ -106,23 +107,25 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun postStory() {
+    private fun postAddStory() {
         viewModel.insertStoryResponse.observe(this) {
             when (it) {
                 is Result.Loading -> {
                     showLoading(true)
                     disableInterface()
                 }
+
                 is Result.Success -> {
                     showLoading(false)
                     enableInterface()
                     AlertDialog.Builder(this).apply {
-                        setTitle("Alright")
+                        setTitle("Congrats!")
                         setMessage(getString(R.string.upload_message))
                         setCancelable(false)
                         setPositiveButton(getString(R.string.next)) { _, _ ->
                             val intent = Intent(context, MainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
                             finish()
                         }
@@ -130,6 +133,7 @@ class AddStoryActivity : AppCompatActivity() {
                         show()
                     }
                 }
+
                 is Result.Error -> {
                     showLoading(false)
                     enableInterface()
@@ -138,18 +142,18 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun disableInterface() {
-        binding.buttonCamera.isEnabled = false
-        binding.buttonGallery.isEnabled = false
-        binding.buttonUpload.isEnabled = false
-        binding.editTextDescription.isEnabled = false
+    private fun enableInterface() {
+        binding.btnCamera.isEnabled = true
+        binding.btnGallery.isEnabled = true
+        binding.uploadBtn.isEnabled = true
+        binding.etDescription.isEnabled = true
     }
 
-    private fun enableInterface() {
-        binding.buttonCamera.isEnabled = true
-        binding.buttonGallery.isEnabled = true
-        binding.buttonUpload.isEnabled = true
-        binding.editTextDescription.isEnabled = true
+    private fun disableInterface() {
+        binding.btnCamera.isEnabled = false
+        binding.btnGallery.isEnabled = false
+        binding.uploadBtn.isEnabled = false
+        binding.etDescription.isEnabled = false
     }
 
     private val requestPermission = registerForActivityResult(
@@ -162,32 +166,36 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun allPermissionGranted() =
-        ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSION) == PackageManager.PERMISSION_GRANTED
+        ContextCompat.checkSelfPermission(
+            this,
+            REQUIRED_PERMISSION
+        ) == PackageManager.PERMISSION_GRANTED
 
     private val launcherGallery = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) {
             currentImageUri = uri
-            showImage()
+            showImg()
         } else {
             Log.d("Photo Picker", "No media selected")
         }
     }
 
-    private fun showToast(message: String?) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
 
-    private fun showImage() {
+    private fun showImg() {
         currentImageUri?.let {
             Log.d("Image URI", "show Image:$it")
-            binding.imageViewPreview.setImageURI(it)
+            binding.ivPreview.setImageURI(it)
         }
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.progressIndicator1.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(message: String?) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

@@ -11,7 +11,7 @@ import com.submission.storyapp.databinding.ActivityDetailBinding
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var listStoryItem: ListStoryItem
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -24,8 +24,6 @@ class DetailActivity : AppCompatActivity() {
         } else {
             showError()
         }
-
-
     }
 
     private fun getListStoryItemFromIntent(): ListStoryItem? {
@@ -45,7 +43,7 @@ class DetailActivity : AppCompatActivity() {
             .with(this)
             .load(listStoryItem.photoUrl)
             .fitCenter()
-            .into(binding.imageDetail)
+            .into(binding.imgDetail)
     }
 
     private fun showError() {

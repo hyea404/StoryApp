@@ -1,8 +1,8 @@
 package com.submission.storyapp.helper
 
 import android.content.Context
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
 import com.submission.storyapp.di.Injection
 import com.submission.storyapp.repository.UserRepository
 import com.submission.storyapp.view.addstory.AddStoryViewModel
@@ -26,7 +26,7 @@ class ViewModelFactory(private val userRepository: UserRepository): ViewModelPro
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
                 AddStoryViewModel(userRepository) as T
             }
-            else -> throw  IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
+            else -> throw  IllegalArgumentException("ViewModel Unknown class: " + modelClass.name)
         }
     }
 
@@ -39,7 +39,7 @@ class ViewModelFactory(private val userRepository: UserRepository): ViewModelPro
         fun getInstance(context: Context): ViewModelFactory {
             if (INSTANCE == null) {
                 synchronized(ViewModelFactory::class.java) {
-                    INSTANCE = ViewModelFactory(Injection.provideRepository(context))
+                    INSTANCE = ViewModelFactory(Injection.provideRepo(context))
                 }
             }
             return INSTANCE as ViewModelFactory

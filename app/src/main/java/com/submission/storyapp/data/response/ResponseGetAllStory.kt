@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class ResponseGetAllStory(
 
     @field:SerializedName("listStory")
-    val listStory: List<ListStoryItem> = emptyList(),
+    val listedStory: List<ListStoryItem> = emptyList(),
 
     @field:SerializedName("error")
     val error: Boolean? = null,
@@ -39,4 +39,5 @@ data class ListStoryItem(
 
     @field:SerializedName("lat")
     val lat: Double? = null
-): Parcelable
+
+) : Parcelable

@@ -4,11 +4,12 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import com.submission.storyapp.databinding.ActivityWelcomeBinding
 import com.submission.storyapp.view.login.LoginActivity
 import com.submission.storyapp.view.signup.SignupActivity
@@ -21,21 +22,21 @@ class WelcomeActivity : AppCompatActivity() {
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupView()
+        setView()
 
         binding.loginButton.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        binding.signupButton.setOnClickListener {
+        binding.signupBtn.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
         }
 
-        playNewAnimation()
+        playAnimate()
 
     }
 
-    private fun setupView() {
+    private fun setView() {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -49,36 +50,45 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
 
-    private fun playNewAnimation() {
-        // Animasi untuk gambar, berputar-putar
-        val imageRotation = ObjectAnimator.ofFloat(binding.imageView, View.ROTATION, 0f, 360f).apply {
-            duration = 2000
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.RESTART
-        }
+    private fun playAnimate() {
+        val imgRotate =
+            ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_Y, 0f, 200f).apply {
+                duration = 2000
+                repeatCount = ObjectAnimator.INFINITE
+                repeatMode = ObjectAnimator.REVERSE
+                interpolator = DecelerateInterpolator()
 
-        // Animasi untuk tombol login dan signup, fade in dan bergerak ke atas
-        val loginTranslationY = ObjectAnimator.ofFloat(binding.loginButton, View.TRANSLATION_Y, 50f, 0f).setDuration(500)
-        val loginAlpha = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 0f, 1f).setDuration(500)
+            }
 
-        val signupTranslationY = ObjectAnimator.ofFloat(binding.signupButton, View.TRANSLATION_Y, 50f, 0f).setDuration(500)
-        val signupAlpha = ObjectAnimator.ofFloat(binding.signupButton, View.ALPHA, 0f, 1f).setDuration(500)
+        val yTranslationLogin =
+            ObjectAnimator.ofFloat(binding.loginButton, View.TRANSLATION_Y, 50f, 0f)
+                .setDuration(510)
+        val alphaLogin =
+            ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 0f, 1f).setDuration(510)
 
-        // Animasi untuk teks title dan desc, fade in dan bergerak ke bawah
-        val titleTranslationY = ObjectAnimator.ofFloat(binding.titleTextView, View.TRANSLATION_Y, -30f, 0f).setDuration(500)
-        val titleAlpha = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 0f, 1f).setDuration(500)
+        val yTranslationSignup =
+            ObjectAnimator.ofFloat(binding.signupBtn, View.TRANSLATION_Y, 50f, 0f).setDuration(510)
+        val alphaSignup =
+            ObjectAnimator.ofFloat(binding.signupBtn, View.ALPHA, 0f, 1f).setDuration(510)
 
-        val descTranslationY = ObjectAnimator.ofFloat(binding.descTextView, View.TRANSLATION_Y, -30f, 0f).setDuration(500)
-        val descAlpha = ObjectAnimator.ofFloat(binding.descTextView, View.ALPHA, 0f, 1f).setDuration(500)
+        val ytranslationTitle =
+            ObjectAnimator.ofFloat(binding.titleTv, View.TRANSLATION_Y, -30f, 0f).setDuration(510)
+        val alphaTitle =
+            ObjectAnimator.ofFloat(binding.titleTv, View.ALPHA, 0f, 1f).setDuration(510)
 
-        // Set animasi bersama-sama
+        val yTranslationDesc =
+            ObjectAnimator.ofFloat(binding.descTextView, View.TRANSLATION_Y, -30f, 0f)
+                .setDuration(510)
+        val alphaDesc =
+            ObjectAnimator.ofFloat(binding.descTextView, View.ALPHA, 0f, 1f).setDuration(510)
+
         val set = AnimatorSet()
         set.playTogether(
-            imageRotation,
-            loginTranslationY, loginAlpha,
-            signupTranslationY, signupAlpha,
-            titleTranslationY, titleAlpha,
-            descTranslationY, descAlpha
+            imgRotate,
+            yTranslationLogin, alphaLogin,
+            yTranslationSignup, alphaSignup,
+            ytranslationTitle, alphaTitle,
+            yTranslationDesc, alphaDesc
         )
         set.start()
     }

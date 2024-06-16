@@ -3,12 +3,12 @@ package com.submission.storyapp.view.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
+import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.activity.viewModels
 import com.submission.storyapp.R
 import com.submission.storyapp.databinding.ActivityMainBinding
 import com.submission.storyapp.helper.ViewModelFactory
@@ -32,10 +32,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val layoutManager = LinearLayoutManager(this)
-        binding.rvStoryList.layoutManager = layoutManager
+        binding.rvListedStory.layoutManager = layoutManager
 
-        viewModel.getSession().observe(this) {
-                user ->
+        viewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
@@ -57,22 +56,16 @@ class MainActivity : AppCompatActivity() {
                 is Result.Success -> {
                     showLoading(false)
                     storyAdapter = UserListAdapter(it.data)
-                    binding.rvStoryList.adapter = storyAdapter
+                    binding.rvListedStory.adapter = storyAdapter
                 }
 
             }
         }
 
-
         binding.addStory.setOnClickListener {
             val intent = Intent(this, AddStoryActivity::class.java)
             startActivity(intent)
         }
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.rvStoryList.visibility = if (isLoading) View.GONE else View.VISIBLE
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -90,5 +83,8 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
+    private fun showLoading(isLoading: Boolean) {
+        binding.rvListedStory.visibility = if (isLoading) View.GONE else View.VISIBLE
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
 }
