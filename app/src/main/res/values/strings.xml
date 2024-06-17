@@ -30,6 +30,11 @@
     <string name="registration_fail">Registration failed</string>
     <string name="story_image">Story Image</string>
     <string name="message_welcome">Create your story today on StoryApps\n</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="type_standardr">Standard</string>
+    <string name="type_satellite">Satellite</string>
+    <string name="type_terrain">Terrain</string>
+    <string name="type_hybrid">Hybrid</string>
 
 
 </resources>

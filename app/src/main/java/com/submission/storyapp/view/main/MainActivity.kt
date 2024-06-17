@@ -15,6 +15,8 @@ import com.submission.storyapp.helper.ViewModelFactory
 import com.submission.storyapp.view.adapter.UserListAdapter
 import com.submission.storyapp.view.welcome.WelcomeActivity
 import com.submission.storyapp.helper.Result
+import com.submission.storyapp.view.adapter.StateLoadingAdapter
+import com.submission.storyapp.view.adapter.UserListLocationAdapter
 import com.submission.storyapp.view.addstory.AddStoryActivity
 
 class MainActivity : AppCompatActivity() {
@@ -81,6 +83,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setNewData(token: String) {
+        val listUserLocationAdapter = UserListLocationAdapter()
+        binding.rvListedStory.adapter = listUserLocationAdapter.withLoadStateFooter(
+            footer = StateLoadingAdapter {
+                listUserLocationAdapter.retry()
+            }
+        )
+        viewModel.listStoryLocation(token).observe(this) {
+            listUserLocationAdapter.submitData(lifecycle, it)
+        }
+        showLoading(false)
     }
 
     private fun showLoading(isLoading: Boolean) {

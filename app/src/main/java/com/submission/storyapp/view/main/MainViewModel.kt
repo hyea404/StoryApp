@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.submission.storyapp.data.preferences.UserModel
 import com.submission.storyapp.data.response.ListStoryItem
 import com.submission.storyapp.repository.UserRepository
@@ -31,6 +33,9 @@ class MainViewModel(private val userRepository: UserRepository) : ViewModel() {
             userRepository.logout()
         }
     }
+
+    fun listStoryLocation(token: String): LiveData<PagingData<ListStoryItem>> =
+        userRepository.getStoriesLocation(token).cachedIn(viewModelScope)
 
 
 }

@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
-
 }
 
 android {
@@ -42,6 +41,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -80,17 +83,18 @@ dependencies {
     //splashscreen
     implementation("androidx.core:core-splashscreen:1.0.1")
 
-
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     implementation("androidx.paging:paging-runtime-ktx:3.3.0")
+    implementation("androidx.paging:paging-runtime:3.3.0")
+    implementation("androidx.room:room-paging:2.6.1")
 
 
     testImplementation("androidx.arch.core:core-testing:2.2.0") // InstantTaskExecutorRule
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") //TestDispatcher
     testImplementation("org.mockito:mockito-core:3.12.4")
     testImplementation("org.mockito:mockito-inline:3.12.4")
-
-
 
     implementation("androidx.exifinterface:exifinterface:1.3.7")
     implementation("com.github.bumptech.glide:glide:4.16.0")
@@ -103,7 +107,10 @@ dependencies {
 
     implementation("androidx.camera:camera-core:1.3.4")
 
-
     implementation ("com.google.android.gms:play-services-basement:18.4.0")
     implementation ("com.google.android.gms:play-services-vision:20.1.3")
+
+    testImplementation ("androidx.test:core:1.5.0")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }
